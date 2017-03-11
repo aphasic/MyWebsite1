@@ -1,0 +1,31 @@
+<div class="modal fade" id="movephotoes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h5 class="modal-title">
+                    移动到
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div class="list-group" id="album_wrap">
+                    <% albumlist.forEach(function(item){ if(item._id==albuminfo._id)return true; %>
+                        <a href="#" class="list-group-item" data-albumid="<%=item._id %>">
+                            <%=item.name %>
+                            <span class="pull-right span-margin glyphicon glyphicon-ok-circle"> </span>
+                        </a>   
+                    <% }) %>                                 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-movephotos">
+                    提交
+                </button>
+            </div>
+        </div><!--modal-content-->
+    </div>
+</div>

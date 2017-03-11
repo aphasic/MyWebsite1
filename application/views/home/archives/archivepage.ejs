@@ -1,0 +1,139 @@
+<% include ../include/header %>
+<link rel="stylesheet" href="/stylesheets/css/archivepage.css">
+<link rel="stylesheet" href="/stylesheets/css/animate.css">
+<style>
+	body{
+		background: #efefef;
+	}
+</style>
+</head>
+<body>
+	<% include ../include/menu %>
+	<section id="bread_nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<ol class="breadcrumb">
+					    <li><a href="/"><span class="glyphicon glyphicon-home span-right"></span>首页</a></li>
+					    <li><a href="/archives">学习笔记</a></li>
+					    <li class="active">文章内容</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="display_wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 col-md-9 display-work">
+					<div class="row display-work-head">
+						<div class="col-md-12 work-head">
+							<h3><%=archive.title %></h3>
+						</div>
+						<div class="col-md-12 title-info">
+							<span class="span-right">发布于 <%= moment(archive.meta.updateAt).format('YYYY-MM-DD HH:mm:ss') %></span>
+							<!-- <span class="span-right">17:09</span> -->
+							<span class="span-right"></span>
+							<span>类型：原创</span>
+							<% archive.catid.forEach(function(cat){%>
+								<span>- <%=cat.name%></span>
+							<% }) %>
+							<!-- <span class="span-right"></span>
+							<span>标签：原创</span>
+							<span>-网页设计</span>
+							<span>-笔记</span> -->
+						</div>
+					</div>	
+					<div class="row display-work-body">
+						<section>
+							<%-archive.content %>
+						</section>
+					</div>
+					<div class="row display-work-head">
+						<div class="col-md-12 work-other">
+							<p>上一篇:<a href="" id="lastarchive"></a></p>
+							<p>下一篇:<a href="" id="nextarchive"></a></p>
+						</div>	
+					</div>
+
+							
+				</div>
+				<div class="col-lg-3 col-md-3 display-other">
+					<!-- <div class="display-other-body">
+						<div class="row display-other-head">
+							<div class="col-xs-9 other-head">
+								<h4>相关标签<span>/Tags</span></h4>
+							</div>
+							<div class="col-xs-3 other-head">
+								<a href="/works">更多<span class="glyphicon glyphicon-chevron-right"></span></a>
+							</div>
+						</div>
+						<div class="display-other-wrap">
+							<div class="tags-wrap">
+									<a href="#">item </a>				
+								
+							</div>
+						</div>						
+					</div> -->
+					<div class="display-other-body">
+						<div class="row display-other-head">
+							<div class="col-xs-9 other-head">
+								<h4>相关推荐<span>/ Relative</span></h4>
+							</div>
+							<div class="col-xs-3 other-head">
+								<a href="/archives">更多<span class="glyphicon glyphicon-chevron-right"></span></a>
+							</div>
+						</div>
+						<div class="row display-other-wrap">
+							<ul>
+								<li class="other-item">
+									<a href="#">暂无推荐</a>
+									<span class="text-muted"></span>
+								</li>
+																								
+							</ul>
+						</div>						
+					</div>					
+				</div>
+			</div>
+		</div>
+	</section>
+	<% include ../include/footer %>
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			var curId = '<%=archive._id%>';
+			$.post('/archives/getlist',{'action':'adjoin','id':curId},
+				function(msg){
+					setAdjoinArchive(msg);
+				})			
+		})
+
+		function setAdjoinArchive(msg){
+			var lastLink = $('#lastarchive');
+			var nextLink = $('#nextarchive');
+			if(msg.err) {
+				lastLink.html('获取失败');
+				nextLink.html('获取失败');
+			} else {
+				if(typeof msg.last == 'undefined'){
+					lastLink.html('没有了');
+					lastLink.attr('href','javascript:;');
+				}else{
+					lastLink.html(msg.last.title);
+					lastLink.attr('href','/archive/' + msg.last._id);
+				}
+				if(typeof msg.next == 'undefined'){
+					nextLink.html('没有了');
+					nextLink.attr('href','javascript:;');
+				}else{
+					nextLink.html(msg.next.title);
+					nextLink.attr('href','/archive/' + msg.next._id);
+				}
+			}			
+		}
+		
+	</script>
+</body>
+</html>

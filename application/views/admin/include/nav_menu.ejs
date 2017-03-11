@@ -1,0 +1,85 @@
+<!--top content-->
+<div class="navbar" role="navigation">
+	<div class="col-lg-5">
+		<form action="" class="form-inline" role="form">
+			<input type="text" name="" class="form-control" placeholder="Search...">
+		</form>
+	</div>	
+</div>
+<!--left menu-->
+<div class="sidebar ">							
+	<div class="sidebar-collapse">
+		<div class="sidebar-header" style="border-bottom: 1px solid #555;">
+            <a target="_blank" href="/">前端小狗</a>
+        </div>										
+		<div class="sidebar-menu">						
+			<ul class="nav nav-sidebar">
+				<li>
+					<a href="/admin" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-home"> </i><span class="text">总 览</span>
+					</a>
+				</li>	
+				<!-- <li>
+					<a href="/admin/content" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-align-justify"> </i><span class="text">内 容</span>
+					</a>
+				</li>	 -->
+				<li>
+					<a href="/admin/archive" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-align-left"> </i><span class="text">文 章</span>
+					</a>
+				</li>	
+				<li>
+					<a href="/admin/album" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-picture"> </i><span class="text">相 册</span>
+					</a>
+				</li>	
+				<li>
+					<a href="/admin/work" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-tasks"> </i><span class="text">作 品</span>
+					</a>
+				</li>		
+				<li>
+					<a href="/admin/user" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-user"> </i><span class="text">用 户</span>
+					</a>
+				</li>	
+				<li>
+					<a href="/admin/setting" class="sidebar-menu-item">
+						<i class="glyphicon glyphicon-cog"> </i><span class="text">设 置</span>
+					</a>
+				</li>					
+			</ul>
+		</div>					
+	</div>
+	<div class="sidebar-footer" style="border-top:1px solid #555;">								
+		<ul class="sidebar-terms">
+			<li><a href="#">Terms</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Help</a></li>
+			<li><a href="#">About</a></li>
+		</ul>
+		
+		<div class="copyright text-center">
+			<small> </small>
+		</div>					
+	</div>
+	<script>
+		//为左侧导航赋颜色
+		(function () {
+			var href = window.location.href.split('/');
+			var last = href[4];
+			var a = document.getElementsByClassName("sidebar-menu-item");
+			for(var i = 0;i < a.length;i++){
+				var a_href = a[i].getAttribute("href");
+				var a_class = a[i].getAttribute("class");
+				var a_arry = a_href.split('/');
+				var a_last = a_arry[2];
+				if(last == a_last){
+					a[i].setAttribute("class" , a_class+" active");
+				}
+			}
+
+		})();
+	</script>
+</div>

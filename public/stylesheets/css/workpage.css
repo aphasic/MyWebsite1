@@ -1,0 +1,21 @@
+
+.display-work .work-head{
+	padding-left: 20px;
+}
+
+.display-work .display-work-head{
+	width: 100%;
+}
+.display-work .display-work-img{
+	width: 100%;
+	margin: 20px 0;
+}
+.display-work .display-work-img img{
+	width: 100%;
+	height: auto;
+	margin: 10px 0;
+}
+.display-work .display-work-btns{
+	width: 100%;
+	text-align: center;
+}

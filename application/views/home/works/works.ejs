@@ -1,0 +1,46 @@
+<% include ../include/header %>
+<link rel="stylesheet" href="/stylesheets/css/works.css">
+<link rel="stylesheet" href="/stylesheets/css/animate.css">
+</head>
+<body>
+	<% include ../include/menu %>
+	<section id="classify">
+		<div class="container classify-wrap">
+			<div class="row classify-body">
+				<div class="col-md-2 classify-head">
+					<p class="text-muted"><span class="glyphicon glyphicon-th-large"> </span>分类标签</p>
+					<span class="glyphicon glyphicon-chevron-right classify-btn visible-xs visible-sm"> </span>
+				</div>
+				<div class="col-md-10 classify-item-wrap">
+					<a href="/works" data-catid="" class="classify-item item-active">全部</a>
+					<% categorylist.forEach(function(item){ %>
+						<a href="/works/?cat=<%=item._id%>" data-catid="<%=item._id%>" class="classify-item"><%=item.name %></a>
+					<% }) %>
+				</div>
+					
+			</div>
+		</div>
+	</section>
+	<section id="waterfall">
+		<div class="wrap">
+			<% worklist.forEach(function(item){ %>
+				<a href="/work/<%=item._id%>">
+					<div class="item animated bounceIn">
+						<div class="box thumbnail">
+							<img src="/<%=item.accesspath%>/preview.png" alt="">
+							<div class="caption">
+								<p class="text-muted"><%=item.name%></p>
+								<a target="_blank" type="button" href="/<%=item.accesspath%>/index.html" class="btn btn-important">在线预览</a>
+							</div>
+						</div>
+					</div>
+				</a>
+			<% }) %>
+		</div>									
+	</section>
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script src="/javascripts/js/public.js"></script>
+	<script src="/javascripts/js/works.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<header id="main_header">
+	<div class="navbar navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="/" class="nav-brand">
+					<img src="/images/images/logo-me.png" id="logo" class="img-responsive" alt="">
+				</a>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/" class="nav-item">主页</a></li>
+					<li><a href="/works" class="nav-item">作品展</a></li>
+					<li><a href="/archives" class="nav-item">学习笔记</a></li>
+					<li><a href="/albums" class="nav-item">相册分享</a></li>
+					<li><a href="/messages" class="nav-item">留言吧</a></li>
+					<li><a href="/aboutme" class="nav-item">关于我</a></li>
+				</ul>
+			</div>			
+		</div>	
+	</div>
+	<script>
+		//为导航赋颜色
+		(function () {
+			var href = window.location.href.split('/');
+			var last = href[3];
+			var a = document.getElementsByClassName("nav-item");
+			if(last == ""){
+				var parent = a[0].parentNode;
+				var li_class = parent.getAttribute("class");
+				parent.setAttribute("class" , li_class+" active");
+			}
+			for(var i = 0;i < a.length;i++){
+				var a_href = a[i].getAttribute("href");
+				var a_arry = a_href.split('/');
+				var a_last = a_arry[1];
+				if(last == a_last){
+					var parent = a[i].parentNode;
+					var li_class = parent.getAttribute("class");
+					parent.setAttribute("class" , li_class+" active");
+				}
+			}
+
+
+		})();
+	</script>
+</header>

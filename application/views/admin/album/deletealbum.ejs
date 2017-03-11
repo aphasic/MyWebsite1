@@ -1,0 +1,25 @@
+<div class="modal fade" id="deletealbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h5 class="modal-title">
+                    删除相册
+                </h5>
+            </div>
+            <div class="modal-body">
+                删除将不可恢复，确定删除相册<span style="margin:0 10px;color:blue" id="delete-album-name"></span>吗？
+            </div>
+            <div class="modal-footer">
+                <form id="form-deletealbum" action="/admin/album/deletealbum" method="post"></form>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="submit" class="btn btn-danger" id="btn-deletealbum" form="form-deletealbum">
+                    删除
+                </button>
+            </div>
+        </div><!--modal-content-->
+    </div>
+</div>

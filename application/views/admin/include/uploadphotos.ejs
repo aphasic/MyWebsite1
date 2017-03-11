@@ -1,0 +1,52 @@
+<div class="modal fade" id="uploadphotos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">		
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					上传照片
+				</h4>
+			</div>
+			<div id="addphotos-content" class="modal-body">						
+				<div class="row row-margin-top">
+					<form class="navbar-form navbar-left">
+						上传到：
+					  	<div class="form-group">
+					    	<select class="form-control">
+							  	<% for(var i = 0, j = albumlist.length; i < j; i++){ %>
+									<option value="">
+										<%=albumlist[i].albumname %>
+									</option>
+							  	<% } %>
+							</select>
+					  	</div>
+					  	<span>
+					  		提示信息
+					  	</span>
+					</form>
+				</div>		
+				<div class="row">					
+					<!--用来存放item-->
+					<div id="fileList" class="uploader-list">
+						<div id="uploader" class="wrap-uploader">			
+							<div id="filePicker">
+								<span class="glyphicon glyphicon-picture"></span> 选择照片
+							</div>										
+							<div class="text-center">按住Ctrl键可多选照片</div>		   
+						</div>
+					</div>						
+				</div>	
+				<span id="bottom-menu-wrap">
+					<button id="btn-upload" class="btn btn-danger" style="float:left;">
+						<span class="glyphicon glyphicon-cloud-upload"></span> 开始上传
+					</button>		
+					<span id="btn-addpic">
+						<span class="glyphicon glyphicon-plus"></span> 继续添加
+					</span>
+				</span>				
+			</div>			
+		</div><!--modal-content-->	
+	</div>
+</div>

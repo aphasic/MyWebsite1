@@ -1,0 +1,121 @@
+<% include ../include/header %>
+<link rel="stylesheet" href="/stylesheets/css/archives.css">
+<link rel="stylesheet" href="/stylesheets/css/animate.css">
+</head>
+<body>
+	<% include ../include/menu %>
+	<section id="classify">
+		<div class="container classify-wrap">
+			<div class="row classify-body">
+				<div class="col-md-2 classify-head">
+					<p class="text-muted"><span class="glyphicon glyphicon-th-large"> </span>分类标签</p>
+					<span class="glyphicon glyphicon-chevron-right classify-btn visible-xs visible-sm"> </span>
+				</div>
+				<div class="col-md-10 classify-item-wrap">
+					<a href="/archives" data-catid="" class="classify-item item-active">全部</a>
+					<% categorylist.forEach(function(item){ %>
+						<a href="/archives/?cat=<%=item._id%>" data-catid="<%=item._id%>" class="classify-item"><%=item.name%></a>
+					<% }) %>		
+				</div>				
+			</div>
+			<!-- <div class="row classify-body">
+				<div class="col-md-2 classify-head">
+					<p class="text-muted"><span class="glyphicon glyphicon-th-large"> </span>类型</p>
+					<span class="glyphicon glyphicon-chevron-right classify-btn visible-xs visible-sm"> </span>
+				</div>
+				<div class="col-md-10 classify-item-wrap">
+					<a href="javascript:;" class="classify-item item-active">全部</a>	
+					<a href="javascript:;" class="classify-item">学习笔记</a>
+					<a href="javascript:;" class="classify-item">随笔</a>	
+					<a href="javascript:;" class="classify-item">译文</a>
+					<a href="javascript:;" class="classify-item">教程</a>		
+				</div>				
+			</div> -->
+			<!-- <div class="row classify-body">
+				<div class="col-md-2 classify-head">
+					<p class="text-muted"><span class="glyphicon glyphicon-th-large"> </span>属性</p>
+					<span class="glyphicon glyphicon-chevron-right classify-btn visible-xs visible-sm"> </span>
+				</div>
+				<div class="col-md-10 classify-item-wrap">
+					<a href="javascript:;" class="classify-item item-active">全部</a>	
+					<a href="javascript:;" class="classify-item">转载</a>
+					<a href="javascript:;" class="classify-item">原创</a>			
+				</div>				
+			</div> -->
+		</div>
+	</section>
+	<section id="archives">
+		<div class="container">
+			<div class="row archive-list">
+				<div class="archive-list-wrap col-md-12">
+					<% archives.forEach(function(item){ %>
+						<div class="archive-list-item animated fadeIn row">
+							<div class="archive-list-head col-md-12">
+								<div class="picture">
+									<div class="picture-wrap">
+										<img src="/images/test/5.jpg" alt="">
+									</div>			
+								</div>
+								<h3>
+									<a href="/archive/<%=item._id%>" target="_blank"><%=item.title %></a>
+								</h3>
+								<section class="title-info">
+									<span class="span-right">发布于 <%= moment(item.meta.updateAt).format('YYYY-MM-DD HH:mm:ss') %></span>
+									<!-- <span class="span-right">17:09</span> -->
+									<span class="span-right"></span>
+									<span>类型：原创</span>
+									<% item.catid.forEach(function(cat){ %>
+										<span>- <%=cat.name %></span>
+									<% }) %>
+								</section>
+							</div>
+							<div class="archive-list-body col-md-12">
+								<p><%-item.abstract %></p>
+							</div>
+						</div>				
+					<% }) %>
+				</div>
+			</div>
+			<div class="row archive-pages">
+				<nav aria-label="Page navigation">
+					<ul class="pagination pagination-lg">
+					    <li>
+						    <a href="#" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						    </a>
+					    </li>
+					    <% for(var i = 1; i <= pagecount; i++){ %>
+					    	<% if(typeof cat == 'undefined'){ %>
+					    		<li><a href="/archives/?p=<%=i%>"><%=i %></a></li>
+					    	<% }else{ %>
+					    		<li><a href="/archives/?cat=<%=cat%>&p=<%=i%>"><%=i %></a></li>
+					    	<% } %>
+					    <% } %>	  
+					    <li><a href="javascript:;"><input type="text"> / <%=pagecount%>页</a></li>
+					    <li>
+					        <a href="#" aria-label="Next">
+					            <span aria-hidden="true">&raquo;</span>
+					        </a>
+					    </li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+	<% include ../include/footer %>
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script src="/javascripts/js/public.js"></script>
+	<script>
+		$(function(){
+			//分类目录处的js
+			classify();
+			//多行文本溢出省略号
+			(function(){
+				var object = $(".archive-list-body p");
+				text_ellipsis(object , 120);
+			})();					
+		});
+	</script>
+</body>
+</html>

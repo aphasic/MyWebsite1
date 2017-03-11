@@ -1,0 +1,85 @@
+body{
+	background: #efefef;
+}
+.archive-list{
+	background: #fff;
+	padding: 20px;
+}
+.archive-list-item .archive-list-head .picture-wrap{
+	width: 60px;
+	height: 60px;
+	margin-top: 5px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.archive-list-item .archive-list-head .picture,.archive-list-item .archive-list-head .title-info{
+	float: left;
+	height: 60px;
+}
+.archive-list-item .archive-list-head .picture{
+	margin-right: 10px;
+}
+.archive-list-item .archive-list-head h3{
+	width: 60%;
+	height: 60px;
+	line-height: 30px;
+	float: left;
+	margin: 0 0 10px 20px;
+}
+.archive-list-item .archive-list-head a{
+	text-decoration: none;
+	color: #222;
+}
+.archive-list-item .archive-list-head .title-info{
+	width: 100%;
+	height: auto;
+	line-height: 30px;
+	background: #efefef;
+	border-radius: 5px;
+	padding-left: 15px;
+	font-size: 1.3em;
+	color: #696666;
+}
+.archive-list-item .archive-list-body{
+	float: left;
+	padding: 10px;
+}
+.archive-list-item .archive-list-body p{
+	color: #606a77;;
+	text-indent: 30px;
+	overflow: hidden;
+	position: relative;
+}
+.archive-pages{
+	text-align: left;
+}
+.archive-pages input{
+	border: 1px solid #efefef;
+	width: 30px;
+	height: 18px;
+}
+.archive-pages input:focus{
+	outline: none;
+}
+
+
+@media(min-width: 768px){
+	.archive-list-item .archive-list-head .title-info{
+		width: 85%;
+	}
+	.archive-list-item .archive-list-head h3{
+		height: 30px;
+	}
+	.archive-list-item .archive-list-body p{
+		line-height: 30px;
+	}
+
+}
+@media(min-width: 992px){
+	
+
+}
+@media(min-width: 1200px){
+
+}
+

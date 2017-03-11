@@ -1,0 +1,97 @@
+<% include ../include/header %>
+<link rel="stylesheet" href="/stylesheets/css/albumlist.css">
+<link rel="stylesheet" href="/stylesheets/css/animate.css">
+</head>
+<body>
+	<% include ../include/menu %>
+	<img id="background" src="/images/test/bg-album.jpg" alt="">
+	<section id="content_album">
+		<header id="album_nav">
+			<ul class="album-nav-wrap">
+				<li class="album-nav-item album-active-item">
+					<a href="#">相册</a>
+				</li>
+				<li class="album-nav-item">
+					<a href="#">照片</a>
+				</li>
+			</ul>
+		</header>	
+		<section id="album_albumlist">
+			<ul class="albumlist-wrap">
+				<% albumlist.forEach(function(item){ %>
+					<li class="albumlist-item">
+						<% if(item.access == 3){ %>
+			    			<img src="/album/pic-lock.png">
+			    		<% }else{ %>
+			    			<% if(typeof item.cover == 'undefined'){ %>
+								<img src="/album/pic-none.png">
+							<% }else{ %>
+								<img src="/<%=item.cover%>">
+							<% } %>
+			    		<% } %>
+						<div class="album-info">
+							<h3 class="animated fadeIn"><%=item.name %></h3>
+							<p class="animated fadeIn" class="animated fadeInUp">
+								<span class="span-right">公开</span>
+								<span class="span-right"><%=item.count%>张</span>
+							</p>
+							<p class="animated fadeIn"><%=item.description %></p>
+						</div>
+					</li>				
+				<% }) %>													
+			</ul>
+		</section>
+		<!-- <section id="album_photolist">
+			<ul class="albumlist-wrap">
+				<li class="albumlist-item">
+					<img src="/images/test/img_8.jpg" alt="">
+					<div class="album-info">
+						<h3 class="animated fadeIn">是客户腐恶恢复</h3>
+						<p class="animated fadeIn" class="animated fadeInUp"><span class="span-right">公开</span><span class="span-right">10张</span></p>
+						<p class="animated fadeIn">及单价为儿返回分恢复分恢复返回诶</p>
+					</div>
+				</li>
+				<li class="albumlist-item">
+					<img src="/images/test/img_6.jpg" alt="">
+					<div class="album-info">
+						<h3 class="animated fadeIn">是客户腐恶恢复</h3>
+						<p class="animated fadeIn" class="animated fadeInUp"><span class="span-right">公开</span><span class="span-right">10张</span></p>
+						<p class="animated fadeIn">及单价为儿返回分恢复分恢复返回诶</p>
+					</div>
+				</li>	
+				<li class="albumlist-item">
+					<img src="/images/test/img_8.jpg" alt="">
+					<div class="album-info">
+						<h3 class="animated fadeIn">是客户腐恶恢复</h3>
+						<p class="animated fadeIn" class="animated fadeInUp"><span class="span-right">公开</span><span class="span-right">10张</span></p>
+						<p class="animated fadeIn">及单价为儿返回分恢复分恢复返回诶</p>
+					</div>
+				</li>
+				<li class="albumlist-item">
+					<img src="/images/test/img_6.jpg" alt="">
+					<div class="album-info">
+						<h3 class="animated fadeIn">是客户腐恶恢复</h3>
+						<p class="animated fadeIn" class="animated fadeInUp"><span class="span-right">公开</span><span class="span-right">10张</span></p>
+						<p class="animated fadeIn">及单价为儿返回分恢复分恢复返回诶</p>
+					</div>
+				</li>														
+			</ul>
+		</section> -->
+	</section>
+	<% include ../include/footer %>
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script src="/javascripts/js/public.js"></script>
+	<script>
+		$(function(){
+			//处理图片大小，使其充满容器
+			//参数为图片对应的图片列表
+		
+			(function(){
+				var imagelist = $('.albumlist-item img');
+				picture( imagelist );
+			})();
+		});
+	</script>
+</body>
+</html>

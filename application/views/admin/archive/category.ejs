@@ -1,0 +1,124 @@
+<% include ../include/header %> 	
+    <style>
+		.main .col-lg-8 table th,td{
+			text-align: center;
+		}
+		.main .col-lg-8 table th:nth-child(2),td:nth-child(2){
+			text-align: left;
+		}
+		.main .col-lg-8 table td:nth-child(2) {
+			color:#0073aa;
+		}
+		.main .col-lg-4 table td{
+			padding-bottom: 20px;
+		}					
+    </style>
+</head>
+<body>						
+	<% include ../include/nav_menu %>
+	<div class="main">	
+		<div>			
+		</div>	
+		<div>
+			<div class="col-lg-4">			
+				<div class="panel panel-default">			
+					<div class="panel-heading">
+						添加栏目
+					</div>
+					<div class="panel-body">	
+						<form id="form-addCate" action="<%=formaction%>" method="post" role="form">	  					
+							<table class="col-md-12">
+								<tr>
+									<td class="col-md-4">栏目名称</td>
+									<td>
+										<input type="text" name="name" class="form-control" required="required" placeholder="栏目名称">
+									</td>
+								</tr>								
+								<tr>
+									<td>所属栏目</td>
+									<td>
+										<select name="parentid" class="form-control">
+											<option value="0">一级栏目</option>
+											<% categorylist.forEach(function(item){%>
+										    	<option value="<%=item._id %>">
+										    		<% for(var m = 0; m < item.level; m++){ %>
+														<script>
+															document.write("|---");
+														</script>
+							    					<% }  %>
+							    					<%= item.name %>
+										    	</option>
+										    <%})%>								  	
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>栏目描述</td>
+									<td>
+										<textarea name="description" class="form-control" cols="30" rows="3"></textarea>
+									</td>
+								</tr>
+							</table>
+						</form>													
+					</div>
+					<div class="panel-footer">
+						<button  type="submit" form="form-addCate" class="btn btn-primary btn-sm">添 加</button>
+					</div>		
+				</div>				
+			</div>
+			<div class="col-lg-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						栏目列表
+					</div>
+					<div class="panel-body">
+	  					<form action="" role="form">
+				    		<table class="table table-hover">
+				    			<thead>
+				    				<th class="col-lg-1">选择</th>
+				    				<th class="col-lg-2">栏目名称</th>
+				    				<th class="col-lg-2">内容数量</th>
+				    				<th class="col-lg-2">操作</th>
+				    			</thead>
+				    			<tbody>
+				    				<% categorylist.forEach(function(item){ %>
+				    				<tr>
+					    				<td>
+					    					<input type="checkbox" name="" id="">
+					    				</td>
+					    				<td>
+					    					<%  for(var m = 0; m < item.level; m++){ %>
+												<script>
+													document.write("|---");
+												</script>
+					    					<% }  %>
+					    					<%= item.name %>
+					    				</td>					    				
+					    				<td>
+					    					0
+					    				</td>					    				
+					    				<td>
+					    					<a type="button" class="btn btn-xs btn-primary" href="">
+					    						<i class="glyphicon glyphicon-pencil"></i>
+					    					</a>
+					    					<a type="button" href="/admin/archive/trashcate/<%=from%>/<%=item._id%>" class="btn btn-xs btn-danger" href="">
+					    						<i class="glyphicon glyphicon-trash"></i>
+					    					</a>		    					
+					    				</td>
+					    			</tr>
+					    			<%})%>			    			
+				    			</tbody>	    			
+				    		</table>
+			    		</form>
+	    			</div>
+	    			<!-- <div class="panel-footer">
+	    				<button class="btn btn-danger btn-sm">删 除</button>
+	    			</div> -->
+    			</div>
+			</div>
+		</div>	
+	</div>
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>		
+</body>
+</html>

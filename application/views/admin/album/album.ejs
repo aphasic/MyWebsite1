@@ -1,0 +1,207 @@
+<% include ../include/header %>		
+    <link rel="stylesheet" href="/stylesheets/webuploader.css">
+    <style>
+		.span-line{
+			border-right: 1px solid #efefef;
+			padding-right: 5px;
+			margin-right: 5px;
+		}			
+		.row-margin-top{
+			margin-top: -15px;
+		}
+		.span-margin-right{
+            margin-right: 10px;
+        }
+		.album-intro {
+			color:rgba(12, 5, 19, 0.48);
+			display: -webkit-box;
+			text-overflow:ellipsis;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+			-webkit-box-orient: vertical;
+			-moz-box-orient: vertical;
+			-ms-box-orient: vertical;
+			box-orient: vertical;
+			overflow: hidden;
+		}
+		.control-number{
+            color: #ccc;
+        }
+        .active-number{
+            color: #ff601a;
+        }
+		.cover-wrap{
+			height: 210px;
+			overflow: hidden;
+			margin-bottom: 10px;
+		}			
+		.intro-wrap{
+			height: 70px;
+		}
+		.main .thumbnail:hover{
+			position: relative;
+			top:-2px;
+			box-shadow: 1px 1px 1px 2px #efefef;
+		}
+		.thumbnail>.cover-wrap{
+			position: relative;
+		}
+		.thumbnail>.cover-wrap .photo-counts{
+			width: 100%;
+			height: 30px;
+			position: absolute;
+			left:0;
+			bottom: 0;
+			line-height:30px;
+			color: #fff;
+			background: rgba(1,1,1,0.3);
+		}
+    </style>
+</head>
+<body>						
+	<% include ../include/nav_menu %>
+	<div>
+		<div class="main"> 			
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+				  	<div class="panel-heading">
+			  			<div class="row">
+				  			<div class="col-lg-12">
+								<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#addalbum">
+									<span class="glyphicon glyphicon-plus"></span> 新建相册
+								</button>
+								<button type="button" class="btn btn-default btn-sm" id="btn-uploadfile" data-toggle="modal" data-target="#uploadphotos">
+									<span class="glyphicon glyphicon-circle-arrow-up"></span> 上传照片
+								</button>
+						  	</div>
+				  		</div>		    	
+				  	</div>
+				  	<div class="panel-body">					  	
+					  	<div class="row">
+					  		<% albumlist.forEach(function(item){ %>
+						  		<div class="col-md-3 album">
+								    <div class="thumbnail">
+								    	<div class="cover-wrap">
+									    	<a href="album/edit/<%=item._id%>">
+									    		<% if(typeof item.cover == 'undefined'){ %>
+									    			<img src="/album/pic-none.png" alt="...">
+									    		<% }else{ %>
+													<img src="/<%=item.cover%>" alt="...">
+									    		<% } %>
+									    	</a>
+											<div class="photo-counts">
+												<div class="col-sm-2">
+													<a href="javascript:;" class="btn-editalbum" data-name="<%=item.name %>" data-description="<%=item.description %>" data-id="<%=item._id%>" data-access="<%=item.access%>" data-accesspwd="<%=item.accesspwd%>" data-toggle="modal" data-target="#editalbum"><span class="glyphicon glyphicon-edit"> </span></a>
+												</div>
+												<div class="col-sm-2">
+													<a href="javascript:;" class="btn-deletealbum" data-name="<%=item.name%>" data-id="<%=item._id%>" data-toggle="modal" data-target="#deletealbum"><span class="glyphicon glyphicon-trash"> </span></a>
+												</div>
+												<div class="col-sm-8">
+													<span class="span-line">
+														<% if(1 == item.access){ %>
+															公开
+														<% }else if(2 == item.access) { %>
+															私密
+														<% }else if(3 == item.access) {%>
+															密码访问
+														<% } %>
+													</span>
+													<span><%=item.count %> 张</span>
+												</div>
+											</div>
+								    	</div>						      	
+								      	<div class="intro-wrap">
+									        <h4>
+									        	<%=item.name %>
+									        </h4>
+									        <p class="album-intro">
+									        	<%=item.description %>     	
+									        </p>									       
+									    </div>
+								    </div>
+								</div>	
+							<% }) %>														
+					  	</div>		    					    	
+				  	</div>
+				</div>
+			</div>
+		</div>				
+	</div>	
+	<div class="modal fade" id="addalbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">	
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						新建相册
+					</h4>
+				</div>
+				<div class="modal-body">	
+					<form id="form-addalbum" action="/admin/album/savealbum" role="form" method="post">					
+						<div class="form-group">
+						    <label for="albumname">相册名称</label>
+						    <input type="text" class="form-control" name="albumname" id="albumname" required placeholder="相册名称">
+						</div>							
+						<div class="form-group">
+						    <label for="albumname">相册描述</label>
+						    <textarea name="description" required class="form-control" cols="30" rows="6" placeholder="相册描述..."></textarea>
+						</div>	
+						<div class="form-group">
+                        <label class="checkbox-inline">
+                            <input name="access" checked="checked" type="radio" value="1">公开
+                        </label>
+                        <label class="checkbox-inline">
+                            <input name="access" type="radio" value="2">私密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input name="access" type="radio" value="3">密码访问
+                            
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="text" class="form-control" name="accesspwd" placeholder="访问密码">
+                        </label>
+                    </div>
+					</form>						
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+					<button type="submit" class="btn btn-primary" form="form-addalbum">
+						提交
+					</button>
+				</div>
+			</div>
+		</div>		
+	</div>
+	<% include uploadphotos %>
+	<% include editalbum %>
+	<% include deletealbum %>
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>	
+	<script src="/javascripts/webuploader.min.js"></script>
+	<script src="/javascripts/uploadphotos.js"></script>
+	<script>
+		$('.btn-editalbum').on('click', function(){
+			$('#text-albumname').attr('value', $(this).data('name'));
+			$('#text-description').html($(this).data('description'));
+			var access = $(this).data('access');
+			$("#form-editalbum input[name='access']").eq(access-1).attr('checked',true);
+			var input_accesspwd = $("input[name='accesspwd']");
+			if(3 == access){
+				input_accesspwd.attr('value', $(this).data('accesspwd'));
+			}else{
+				input_accesspwd.attr('value','');
+			}
+			$('#form-editalbum').append('<input type="hidden" name="albumid" value="' + $(this).data('id') + '" />');
+		})
+		$('.btn-deletealbum').on('click', function(){
+			$('#delete-album-name').html($(this).data('name'));
+			var form_deletealbum = $('#form-deletealbum');
+			form_deletealbum.empty();
+			form_deletealbum.append('<input type="hidden" name="albumid" value="' + $(this).data('id') + '" />');
+		})
+	</script>	
+</body>
+</html>

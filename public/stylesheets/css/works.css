@@ -1,0 +1,47 @@
+
+#waterfall{
+	width: 100%;
+	margin: auto;
+}
+#waterfall button{
+	margin: 0;
+}
+#waterfall .wrap{
+	width: 80%;
+	margin: auto;
+	position: relative;
+}
+#waterfall .item{
+	width: 100%;
+	padding: 0 10px;
+	float: left;
+}
+#waterfall .item:hover .box{
+	box-shadow: 0 0 5px #ccc;
+}
+#waterfall .item .box{
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+#waterfall .item .box img{
+	width: 100%;
+	height: auto;
+}
+
+@media(min-width: 768px){
+	#waterfall .item{
+		width: 50%;
+	}
+	
+}
+@media(min-width: 992px){
+	#waterfall .item{
+		width: 33.333%;
+	}
+}
+@media(min-width: 1200px){
+	#waterfall .item{
+		width: 25%;
+	}
+}

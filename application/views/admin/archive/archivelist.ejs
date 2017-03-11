@@ -1,0 +1,115 @@
+<% include ../include/header %> 	
+    <style>
+		.main table th,td{
+			text-align: center;
+		}
+		.main table th:nth-child(2),td:nth-child(2){
+			text-align: left;
+		}
+    </style>
+</head>
+<body>						
+	<% include ../include/nav_menu %>
+	<div>
+		<div class="main">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+				  	<div class="panel-heading">
+				  		<div class="row">
+				  			<div class="col-lg-12">
+								<a href="/admin/archive/new" type="button" class="btn btn-danger btn-sm">
+									<span class="glyphicon glyphicon-plus"></span> 写文章
+								</a>
+								<a href="/admin/archive/category" type="button" class="btn btn-default btn-sm" id="btn-uploadfile">
+									<i class="glyphicon glyphicon-list"></i>
+									栏目管理
+								</a>
+						  	</div>	
+				  		</div>			  				    	
+				  	</div>
+				  	<div class="panel-body">
+				    	<div class="col-lg-12">
+				    		<form role="form" class="form-inline">			
+				    			<select id="catid" class="form-control input-sm">
+								  	<option value="all">全部栏目</option>
+							  		<% categorylist.forEach(function(item){ %>
+								    	<option value="<%=item._id %>">
+								    		<% for(var m = 0; m < item.level; m++){ %>
+												<script>
+													document.write("|---");
+												</script>
+					    					<% } %>
+					    					<%= item.name %>
+								    	</option>
+								    <%})%>	
+								</select>							
+								<button type="button" id="btn-filter" class="btn btn-default btn-sm">
+									筛 选
+								</button>								
+				    		</form>
+				    	</div>
+				    	<div class="col-lg-12">
+				    		<table class="table table-hover">
+				    			<thead>
+				    				<th class="col-lg-1">选择</th>
+				    				<th class="col-lg-4">标题</th>
+				    				<th class="col-lg-2">栏目</th>
+				    				<th class="col-lg-1">浏览量</th>
+				    				<th class="col-lg-2">时间</th>
+				    				<th class="col-lg-1">操作</th>
+				    			</thead>
+				    			<tbody>
+				    				<% archivelist.forEach(function(item){ %>
+					    				<tr>
+					    					<td>
+					    						<input type="checkbox" name="" id="">
+					    					</td>
+					    					<td>
+					    						<a href="/admin/archive/edit/<%=item._id%>">
+					    							<%=item.title %>
+					    						</a>				    						
+					    					</td>					    				
+					    					<td>
+					    						<% item.catid.forEach(function(cat){%>
+													<%=cat.name%>
+					    						<% }) %>
+					    					</td>
+					    					<td>
+					    						<%=item.pv%>
+					    					</td>
+					    					<td>
+					    						<%= moment(item.meta.updateAt).format('YYYY-MM-DD HH:mm:ss') %>
+					    					</td> 
+					    					<td>
+					    						<a class="btn btn-success btn-xs" role="button" href="/admin/archive/edit/<%=item._id%>">	
+					    							<i class="glyphicon glyphicon-pencil"></i>		  		
+					    						</a>
+					    						<a class="btn btn-danger btn-xs" role="button" href="/admin/archive/trash/<%=item._id%>">			
+					    							<i class="glyphicon glyphicon-trash"></i>			
+					    						</a>	
+					    					</td>
+					    				</tr>
+				    				<% }) %>
+				    			</tbody>
+				    		</table>
+				    	</div>
+				  	</div>
+				</div>
+			</div>			
+		</div>
+				
+	</div>	
+			
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#btn-filter').on('click', function(){
+				var catid = $('#catid').val();
+				var queryurl = '/admin/archive/?cat=' + catid;
+				location.href = queryurl;
+			})
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<% include ../include/header %> 	
+    <link rel="stylesheet" href="/stylesheets/webuploader.css">   
+    <style>
+		.filepicker{
+			margin-bottom: 10px;
+		}
+		.no-rlpadding {
+			padding-right: 0;
+			padding-left: 0;
+		}
+		.tag-prompt{
+			color:#9a9494;
+			margin-bottom: 8px;
+			margin-top: -5px;
+		}
+		.upload-helper{
+			margin-bottom: 10px;
+			color:blue;
+		}
+		#tags-wrap button{
+			margin-bottom: 5px;
+			margin-right: 5px;
+		}
+    </style> 
+</head>
+<body>
+	<% include ../include/nav_menu %>
+	<div>
+		<div class="main">
+			<form action="/admin/work/savework" method="post" id="form-work">				
+				<div class="col-lg-9">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							发布新作品
+						</div>
+						<div class="panel-body" style="padding-right:15px">	
+							<div class="form-group">
+								<div id="uploader" class="wu-example">
+								    <!--用来存放文件信息-->
+								    <div id="thelist" class="uploader-list"></div>
+								    <div class="btns">
+								        <div id="picker" class="filepicker">选择作品文件</div>				
+								        <div class="upload-helper">请将作品文件夹压缩后上传，允许上传 zip 格式的文件，请在文件夹根目录存放“ preview.png ”为作品封面。</div>
+								        <button type="button" id="btn-startupload" class="btn btn-default">开始上传</button>					        
+								    </div>
+								</div>
+							</div>							
+							<div class="form-group">								    
+							    <input type="text" name="name" class="form-control" required="required" placeholder="输入作品标题">
+							</div>
+							<div>
+								<script id="ueditor" name="description" type="text/plain"></script>
+							    <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+							    <script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>							  
+							    <script type="text/javascript">
+							        var ue = UE.getEditor('ueditor',{initialFrameHeight:300});
+							    </script>
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div class="col-lg-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							选择栏目
+						</div>
+						<div class="panel-body">					
+							<% categorylist.forEach(function(item){ %>
+								<p>
+									<% for(var m = 0; m < item.level; m++){ %>
+										<script>document.write('— ');</script>
+									<% } %>									
+									<input type="checkbox" value="<%= item._id %>" name="catid">
+									<%= item.name %>
+								</p>
+							<% }) %>
+						</div>					
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							标签
+						</div>
+						<div class="panel-body">					
+							<div class="form-group col-lg-8 no-rlpadding">
+								<input type="text" id="text-tags" class="form-control" placeholder="输入标签">	
+							</div>
+							<div class="col-lg-4">
+								<button type="button" id="btn-addtags" class="btn btn-default">添加</button>
+							</div>
+							<div class="col-lg-12 no-rlpadding tag-prompt">
+								多个标签请用英文（,）分隔
+							</div>
+							<div class="col-lg-12 no-rlpadding" id="tags-wrap">
+								
+							</div>
+							<input type="hidden" name="tags" id="hidden-tags" />
+						</div>					
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							发布
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+						    	<label><i class="glyphicon glyphicon-eye-open"> </i> 公开度</label>
+						    	<div class="radio">
+								  	<label>
+								    	<input type="radio" name="access" value="1" checked>
+								    	公 开
+								  	</label>
+								</div>
+								<div class="radio">
+								  	<label>
+								    	<input type="radio" name="access" value="2">
+								    私 密
+								  	</label>
+								</div>
+								<div class="radio">
+								  	<label>
+								    	<input type="radio" name="access" value="3">
+								    密码访问
+								  	</label>
+								</div>
+								<div class="form-group">
+								    <input type="text" name="accesspwd" class="form-control" placeholder="访问密码">
+								 </div>
+						  </div>
+						</div>
+						<div class="panel-footer">						
+							<button type="submit" id="btn-submit" class="btn btn-danger btn-sm" disabled="disabled">发 布</button>
+						</div>
+					</div>
+				</div>				
+			</form>
+		</div>
+		
+	</div>	
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>	
+	<script src="/javascripts/webuploader.min.js"></script>	
+	<script src="/javascripts/uploadfiles.js"></script>
+	<script>
+		var tagsArr = new Array();//保存所有标签数组
+		//添加标签
+		$('#btn-addtags').on('click', function(){
+			var input_tags = $('#text-tags');
+			var newtagsArr = input_tags.val().split(',');
+			if(1 == newtagsArr.length && !$.trim(newtagsArr[0])) {
+				return;
+			}
+			var tagsWrap = $('#tags-wrap');
+			newtagsArr.forEach(function(item){
+				var _item = $.trim(item);
+				if(!_item || tagsArr.indexOf(_item) >= 0) return true;
+				else {
+					tagsWrap.append('<button type="button" class="btn btn-warning btn-xs btn-tag">' + _item + '</button>');
+					tagsArr.push(_item);
+				}	
+			})
+			input_tags.val('');
+			$('#hidden-tags').attr('value',JSON.stringify(tagsArr));
+			$('.btn-tag').on('click', function(){
+				var tag = $(this).html();
+				var index = tagsArr.indexOf(tag);
+				if(index >= 0) {
+					tagsArr.splice(index, 1);
+					$('#hidden-tags').attr('value',JSON.stringify(tagsArr));
+					$(this).remove();
+				}
+			})
+		})
+		
+	</script>
+</body>
+</html>

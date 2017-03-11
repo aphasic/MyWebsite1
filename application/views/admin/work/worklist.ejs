@@ -1,0 +1,49 @@
+<% include ../include/header %> 	
+</head>
+<body>						
+	<% include ../include/nav_menu %>
+	<div>
+		<div class="main"> 			
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+				  	<div class="panel-heading">
+			  			<div class="row">
+				  			<div class="col-lg-12">
+								<a type="button" class="btn btn-danger btn-sm" href="/admin/work/new">
+									<span class="glyphicon glyphicon-plus"></span> 新建作品
+								</a>
+								<a href="work/category" type="button" class="btn btn-default btn-sm" id="btn-uploadfile">
+									<i class="glyphicon glyphicon-list"></i>
+									栏目管理
+								</a>
+						  	</div>
+				  		</div>		    	
+				  	</div>
+				  	<div class="panel-body">					  	
+					  	<div class="row">
+					  		<% worklist.forEach(function(item){ %>
+						  		<div class="col-md-3">
+								    <div class="thumbnail">
+								    	<div>
+									    	<a href="">
+									    		<img src="/<%=item.accesspath%>/preview.png">	
+									    	</a>											
+								    	</div>						      	
+								      	<div>
+									        <h4>
+									        	<%=item.name %>
+									        </h4>									       
+									    </div>
+								    </div>
+								</div>	
+							<% }) %>														
+					  	</div>		    					    	
+				  	</div>
+				</div>
+			</div>
+		</div>				
+	</div>	
+	<script src="/javascripts/jquery2.1.4.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>	
+</body>
+</html>

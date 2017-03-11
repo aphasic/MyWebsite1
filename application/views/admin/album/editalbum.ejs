@@ -1,0 +1,48 @@
+<div class="modal fade" id="editalbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h5 class="modal-title">
+                    编辑相册信息
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/album/editalbum" id="form-editalbum" method="post">
+                    <div class="form-group has-feedback limit-number">
+                        <input maxlength="10" type="text" class="form-control input-sm" placeholder="相册名称" name="name" id="text-albumname">
+                        <span class="form-control-feedback span-margin-right control-number"><span class="active-number">0</span>/10</span>
+                    </div>
+                    <div class="form-group has-feedback limit-number">
+                        <textarea maxlength="200" name="description" class="form-control textarea-sm" id="text-description" style="width: 100%;height:100px;resize:none"  placeholder="添加描述..."></textarea>
+                        <span class="form-control-feedback span-margin-right control-number"><span class="active-number">0</span>/200</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input name="access" type="radio" value="1">公开
+                        </label>
+                        <label class="checkbox-inline">
+                            <input name="access" type="radio" value="2">私密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input name="access" type="radio" value="3">密码访问
+                            
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="text" class="form-control" name="accesspwd" placeholder="访问密码">
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary" form="form-editalbum">
+                        提交
+                    </button>
+                </div>
+        </div><!--modal-content-->
+    </div>
+</div>
